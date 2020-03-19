@@ -79,7 +79,9 @@ f5_agent_opts = [
                 help=_('Port for prometheus to expose, defaults to 8000.')),
     cfg.BoolOpt('dry_run', default=False,
                 help=_("Run in dry-run, do not realize AS3 definitions.")),
-
+    cfg.IntOpt('availability_timeout', default=5.0, # TODO: Is this really in seconds?
+               help=_("Time in seconds before a device is marked as offline."
+                      "This is only used by status manager, NOT for AS3 requests.")),
 ]
 
 f5_networking_opts = [
