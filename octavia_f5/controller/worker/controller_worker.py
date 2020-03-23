@@ -496,12 +496,12 @@ class ControllerWorker(object):
 
         This function creates an amphora entry in the database, if it doesn't already exist.
         """
-        device_amp = self._amphora_repo.get(
+        device_entry = self._amphora_repo.get(
             db_apis.get_session(),
             load_balancer_id=load_balancer_id)
 
         # create amphora mapping if missing
-        if not device_amp:
+        if not device_entry:
             self._amphora_repo.create(
                 db_apis.get_session(),
                 id=load_balancer_id,
@@ -511,10 +511,10 @@ class ControllerWorker(object):
             return
 
         # update host if not updated yet
-        if device_amp.compute_flavor != CONF.host:
+        if device_entry.compute_flavor != CONF.host:
             self._amphora_repo.update(
                 db_apis.get_session(),
-                id=device_amp.id,
+                id=device_entry.id,
                 compute_flavor=CONF.host)
 
     def create_amphora(self):
